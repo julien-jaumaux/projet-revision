@@ -6,13 +6,10 @@ $user = new User();
 if(!empty($_POST)){
 $login =$_POST['login'];
 $password =$_POST['password'];
-$email =$_POST['email'];
-$firstname =$_POST['firstname'];
-$lastname =$_POST['lastname'];
-$user->register($login, $password, $email, $firstname, $lastname);
+$user->connect($login, $password);
+$user->isConnected();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,22 +17,16 @@ $user->register($login, $password, $email, $firstname, $lastname);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+    <title>Connexion</title>
 </head>
 <body>
-<h1>Inscription<h1>
+<h1>Connexion<h1>
     <form method="post" action="">
         <p>login</p>
         <input type="text" name="login">
         <p>Password</p>
         <input type="password" name="password">
-        <p>email</p>
-        <input type="email" name="email">
-        <p>Prenom</p>
-        <input type="text" name="firstname">
-        <p>Nom</p>
-        <input type="text" name="lastname">
-        <input type="submit" name="s'inscrire">
+        <input type="submit" name="Se connecter">
     </form>
 </body>
 </html>

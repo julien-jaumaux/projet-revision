@@ -11,12 +11,6 @@ class User
 
     public function __construct(){
         $this->dbh = new PDO('mysql:host=localhost;dbname=revisions', 'root', '');
-        // $this->login = $login;
-        // $this->password = $password;
-        // $this->email = $email;
-        // $this->firstname = $firstname;
-        // $this->lastname = $lastname;
-
     }
 
     /*-----------méthode get--------------*/
