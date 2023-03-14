@@ -68,15 +68,22 @@ class User
 
         echo"Veuillez remplir tous les champs";
         } 
-
     }
 
     public function connect($login, $password){
+        if(!empty($login) && !empty($password)){
         $connect = $this->dbh->prepare("SELECT * FROM utilisateurs WHERE login = ? AND password = ?");
         $connect->execute([$login, $password]);
         $result = $connect->fetch(PDO::FETCH_ASSOC);
+        if($connect->rowCount()==1){    
         $_SESSION['user'] = $result;
-        var_dump($_SESSION);
+        header("location:article.php");
+        var_dump($this->isConnected());
+        }
+        }
+        else{
+            echo"Veuillez remplir tous les champs";
+            } 
     }
     
     public function disconnect(){
