@@ -10,6 +10,7 @@ $email =$_POST['email'];
 $firstname =$_POST['firstname'];
 $lastname =$_POST['lastname'];
 $user->register($login, $password, $email, $firstname, $lastname);
+header("location:connexion.php");
 }
 ?>
 

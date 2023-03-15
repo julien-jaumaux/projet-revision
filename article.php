@@ -1,18 +1,19 @@
 <?php
+// session_start();
+
 include('bdh.php');
 include('user.php');
 $id_utilisateur = $_SESSION['user']['id'];
 
 if(isset($_POST['submit'])){
     if(!empty($_POST['article']) ){
-        $article = $_POST['article'];
+    $article = $_POST['article'];
     $createArticle = $dbh->prepare("INSERT INTO articles(article, id_utilisateur) VALUES (?,?)");
     $createArticle->execute([$article, $id_utilisateur]);
     }
     echo"<br>votre article à bien été ajouté.";
     }
 
-// var_dump($article);
 ?>
 
 <!DOCTYPE html>
@@ -31,5 +32,6 @@ if(isset($_POST['submit'])){
         <input type="submit" name="submit">
     </form>
     <button><a href="logout.php">Se déconnecter</a></button>
+    <button><a href="articles.php">Liste d'articles</a></button>
 </body>
 </html>
