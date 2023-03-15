@@ -36,5 +36,6 @@ echo '<button><a href="articles.php?ordre='.$ordre.'">changer l\'ordre de classe
 <body>
     <button><a href="logout.php">Se déconnecter</a></button>
     <button><a href="article.php">Ajouter article</a></button>
+    <button><a href="profil.php">Modifier son profil</a></button>
 </body>
 </html>

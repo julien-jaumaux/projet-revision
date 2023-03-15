@@ -33,5 +33,6 @@ if(isset($_POST['submit'])){
     </form>
     <button><a href="logout.php">Se déconnecter</a></button>
     <button><a href="articles.php">Liste d'articles</a></button>
+    <button><a href="profil.php">Modifier son profil</a></button>
 </body>
 </html>

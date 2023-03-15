@@ -100,7 +100,22 @@ class User
             echo "--disconnected--";
             return false;
         }
-    }   
+    } 
+    
+    public function update($login, $password, $email, $firstname, $lastname)
+    {
+        $updateUser = $this->dbh->prepare("UPDATE utilisateurs SET login=?, password=?, email=?, firstname=?, lastname=? WHERE login = ?");
+        $updateUser->execute([$login, $password, $email, $firstname, $lastname, $_SESSION['user']['login']]);
+        $_SESSION['user']['login'] = $_POST['login'];
+        $_SESSION['user']['password'] = $_POST['password'];
+        $_SESSION['user']['email'] = $_POST['email'];
+        $_SESSION['user']['firstname'] = $_POST['firstname'];
+        $_SESSION['user']['lastname'] = $_POST['lastname'];
+        $_SESSION['valider'] = "votre profil est bien modifié";
+        header("location:profil.php");
+        exit();
+        
+    }
 }
 
 //$user = new User();
@@ -108,6 +123,7 @@ class User
 // $user->connect("test1","test1");
 // $user->disconnect();
 //$user->isConnected();
+//$user->update();
 //session_destroy();
 
 ?>
