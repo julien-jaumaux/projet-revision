@@ -1,5 +1,5 @@
 <?php
-include('bdh.php');
+include('dbh.php');
 include('user.php');
 
 if(isset($_GET['ordre']) && ($_GET['ordre']) == 'croissant'){

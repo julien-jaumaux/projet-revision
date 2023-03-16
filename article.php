@@ -1,7 +1,7 @@
 <?php
 // session_start();
 
-include('bdh.php');
+include('dbh.php');
 include('user.php');
 $id_utilisateur = $_SESSION['user']['id'];
 

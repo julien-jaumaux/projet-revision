@@ -1,12 +1,12 @@
 <?php
-session_start();
 
+include('dbh.php');
 include('user.php');
 $user = new User();
 if(!empty($_POST)){
 $login =$_POST['login'];
 $password =$_POST['password'];
-$user->connect($login, $password);
+$user->connect($login, $password,$dbh);
 $user->isConnected();
 }
 ?>
@@ -28,5 +28,6 @@ $user->isConnected();
         <input type="password" name="password">
         <input type="submit" name="Se connecter">
     </form>
+    <button><a href="inscription.php">S'inscrire</a></button>
 </body>
 </html>

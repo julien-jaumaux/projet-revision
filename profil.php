@@ -1,5 +1,5 @@
 <?php
-include('bdh.php');
+include('dbh.php');
 include('user.php');
 
 if(isset($_POST['modifier'])){
@@ -42,5 +42,5 @@ if(isset($_SESSION['valider'])){
 </body>
 </html>
 <?php
- unset($_SESSION['valider']);
+unset($_SESSION['valider']);
 ?>

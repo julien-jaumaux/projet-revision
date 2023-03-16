@@ -1,6 +1,6 @@
 <?php
-session_start();
 
+include('dbh.php');
 include('user.php');
 $user = new User();
 if(!empty($_POST)){
@@ -9,8 +9,8 @@ $password =$_POST['password'];
 $email =$_POST['email'];
 $firstname =$_POST['firstname'];
 $lastname =$_POST['lastname'];
-$user->register($login, $password, $email, $firstname, $lastname);
-header("location:connexion.php");
+$user->register($login, $password, $email, $firstname, $lastname,$dbh);
+
 }
 ?>
 
@@ -27,16 +27,19 @@ header("location:connexion.php");
 <h1>Inscription<h1>
     <form method="post" action="">
         <p>login</p>
-        <input type="text" name="login">
+        <input type="text" name="login" placeholder="login">
         <p>Password</p>
-        <input type="password" name="password">
+        <input type="password" name="password" placeholder="password">
+        <p>Confirm password</p>
+        <input type="password" name="confirmpassword" placeholder="confirmpassword">
         <p>email</p>
-        <input type="email" name="email">
+        <input type="email" name="email" placeholder="email">
         <p>Prenom</p>
-        <input type="text" name="firstname">
+        <input type="text" name="firstname" placeholder="firstname">
         <p>Nom</p>
-        <input type="text" name="lastname">
+        <input type="text" name="lastname" placeholder="lastname">
         <input type="submit" name="s'inscrire">
     </form>
+    <button><a href="connexion.php">Se connecter</a></button>
 </body>
 </html>
