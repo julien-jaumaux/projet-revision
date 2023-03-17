@@ -1,8 +1,7 @@
 <?php
-
 include('dbh.php');
 include('user.php');
-$user = new User();
+$user = new User('');
 if(!empty($_POST)){
 $login =$_POST['login'];
 $password =$_POST['password'];
@@ -12,6 +11,7 @@ $lastname =$_POST['lastname'];
 $user->register($login, $password, $email, $firstname, $lastname,$dbh);
 
 }
+//var_dump($_SESSION['user']);
 ?>
 
 

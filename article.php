@@ -3,7 +3,7 @@
 
 include('dbh.php');
 include('user.php');
-$id_utilisateur = $_SESSION['user']['id'];
+$id_utilisateur = $_SESSION['user']->id;
 
 if(isset($_POST['submit'])){
     if(!empty($_POST['article']) ){
@@ -13,7 +13,7 @@ if(isset($_POST['submit'])){
     }
     echo"<br>votre article à bien été ajouté.";
     }
-
+var_dump($_SESSION['user']);
 ?>
 
 <!DOCTYPE html>

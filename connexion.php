@@ -2,13 +2,14 @@
 
 include('dbh.php');
 include('user.php');
-$user = new User();
+$user = new User('');
 if(!empty($_POST)){
 $login =$_POST['login'];
 $password =$_POST['password'];
 $user->connect($login, $password,$dbh);
 $user->isConnected();
 }
+var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -29,5 +30,6 @@ $user->isConnected();
         <input type="submit" name="Se connecter">
     </form>
     <button><a href="inscription.php">S'inscrire</a></button>
+    <button><a href="logout.php">Se déconnecter</a></button>
 </body>
 </html>

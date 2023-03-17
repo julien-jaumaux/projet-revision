@@ -1,14 +1,19 @@
 <?php
-
+session_start();
 class User
 {
-    public $dbh;
+
+    public $id;
     public $login;
     public $password;
     public $email;
     public $firstname;
     public $lastname;
 
+
+    public function __construct($id){
+        $this->id = $id;
+    }
 
 
     /*-----------méthode get--------------*/
@@ -84,8 +89,14 @@ $user = $stmt->fetchAll();
         $connect->execute([$login, $password]);
         $result = $connect->fetch(PDO::FETCH_ASSOC);
 
-        if($connect->rowCount()==1){    
-        $_SESSION['user'] = $result;
+        if($connect->rowCount()==1){ 
+        $this->id = $result['id'];    
+        $this->login = $result['login'];
+        $this->password = $result['password'];  
+        $this->email = $result['email'];
+        $this->firstname = $result['firstname'];  
+        $this->lastname = $result['lastname'];   
+        $_SESSION['user'] = $this;
         header("location:article.php");
         var_dump($this->isConnected());
         }
@@ -97,7 +108,7 @@ $user = $stmt->fetchAll();
     
     public function disconnect(){
         unset($_SESSION['user']);
-        var_dump($_SESSION);
+        header('Location:connexion.php');
     }
 
     public function isConnected(){
@@ -114,12 +125,12 @@ $user = $stmt->fetchAll();
     public function update($login, $password, $email, $firstname, $lastname,$dbh)
     {
         $updateUser = $dbh->prepare("UPDATE utilisateurs SET login=?, password=?, email=?, firstname=?, lastname=? WHERE login = ?");
-        $updateUser->execute([$login, $password, $email, $firstname, $lastname, $_SESSION['user']['login']]);
-        $_SESSION['user']['login'] = $_POST['login'];
-        $_SESSION['user']['password'] = $_POST['password'];
-        $_SESSION['user']['email'] = $_POST['email'];
-        $_SESSION['user']['firstname'] = $_POST['firstname'];
-        $_SESSION['user']['lastname'] = $_POST['lastname'];
+        $updateUser->execute([$login, $password, $email, $firstname, $lastname, $_SESSION['user']->login]);
+        $_SESSION['user']->login = $_POST['login'];
+        $_SESSION['user']->password = $_POST['password'];
+        $_SESSION['user']->email = $_POST['email'];
+        $_SESSION['user']->firstname = $_POST['firstname'];
+        $_SESSION['user']->lastname = $_POST['lastname'];
         $_SESSION['valider'] = "votre profil est bien modifié";
         header("location:profil.php");
         exit();

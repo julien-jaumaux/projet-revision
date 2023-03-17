@@ -3,8 +3,8 @@ include('dbh.php');
 include('user.php');
 
 if(isset($_POST['modifier'])){
-    $user = new User();
-    $user->update($_POST['login'],$_POST['password'],$_POST['email'],$_POST['firstname'],$_POST['lastname']);
+    $user = new User($_SESSION['user']->id);
+    $user->update($_POST['login'],$_POST['password'],$_POST['email'],$_POST['firstname'],$_POST['lastname'], $dbh);
 }
 if(isset($_SESSION['valider'])){
     echo $_SESSION['valider'];
@@ -25,15 +25,15 @@ if(isset($_SESSION['valider'])){
     <h1>Modifier profil<h1>
         <form method="post" action="">
             <p>login</p>
-            <input type="text" name="login" value="<?=$_SESSION['user']['login']?>">
+            <input type="text" name="login" value="<?=$_SESSION['user']->login?>">
             <p>Password</p>
-            <input type="password" name="password" value="<?=$_SESSION['user']['password']?>">
+            <input type="password" name="password" value="<?=$_SESSION['user']->password?>">
             <p>email</p>
-            <input type="email" name="email" value="<?=$_SESSION['user']['email']?>">
+            <input type="email" name="email" value="<?=$_SESSION['user']->email?>">
             <p>Prenom</p>
-            <input type="text" name="firstname" value="<?=$_SESSION['user']['firstname']?>">
+            <input type="text" name="firstname" value="<?=$_SESSION['user']->firstname?>">
             <p>Nom</p>
-            <input type="text" name="lastname" value="<?=$_SESSION['user']['lastname']?>">
+            <input type="text" name="lastname" value="<?=$_SESSION['user']->lastname?>">
             <input type="submit" name="modifier" >
         </form>
         <button><a href="logout.php">Se déconnecter</a></button>
