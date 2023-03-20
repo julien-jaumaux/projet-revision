@@ -9,7 +9,7 @@ echo"Classement par ordre décroissant<br>";
 echo"<br>";
 }
 else{
-    $showArticle = $dbh->prepare("SELECT article, login FROM articles INNER JOIN utilisateurs ON articles.id_utilisateur = utilisateurs.id ORDER BY articles.id ASC");
+    $showArticle = $dbh->prepare("SELECT article, articles.id, login FROM articles INNER JOIN utilisateurs ON articles.id_utilisateur = utilisateurs.id ORDER BY articles.id ASC");
     $ordre = 'croissant'; 
     echo"Classement par ordre croissant<br>";
     echo"<br>";   
@@ -18,8 +18,16 @@ $showArticle->execute();
 $result = $showArticle->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($result as $key => $value){
+    $link = $dbh->prepare("SELECT categories.nom ,articles.id FROM categories INNER JOIN liaison ON categories.id = liaison.id_categorie INNER JOIN articles ON liaison.id_article = articles.id WHERE articles.id = ?");
+    $link->execute([$result[$key]['id']]);
+    $resultlink = $link->fetchAll(PDO::FETCH_ASSOC);
+
     echo $value['article']."<br>";
     echo $value['login']."<br>";
+    echo "catégorie : <br>";
+    foreach($resultlink as $k => $val){
+        echo $val['nom']. "<br>";
+    }
     echo "<br>";
 }
 
