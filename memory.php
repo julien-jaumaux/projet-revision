@@ -12,40 +12,66 @@ $nbCard = 12;
     return $card;
 }
 
+function resetgame(){
+    if(!empty($_GET['reset'])){
+    if($_GET['reset'] == 'reset'){
+        session_destroy();
+        session_unset();
+        header("location:memory.php");
+    }   
+ }
+} 
+resetgame();
+
+
 function verifState($card,$i){
 
     if(isset($_GET['jouer'])){
         if($_GET['jouer'] == $card[$i]->getId_card()){
             $card[$i]->setState(true);
+            header("location:memory.php");
+            var_dump($i);
         }
        
     }
 
 }
 
+    
+function randomblock($card){
+    
+    if(empty($_SESSION['rdm'])){
+        $_SESSION['rdm'] = $card;
+        shuffle($_SESSION['rdm']);
+    }
+    
+    return $_SESSION['rdm'];
+}
+
 
  function boardCard($nbCard)
 {
     
-
-        $card = createCard($nbCard);
+    $card = createCard($nbCard);
+    $rdm = randomblock($card);
         
         for ($i = 0; $i < $nbCard; $i++) {
-            verifState($card,$i);
-            if ($card[$i]->getState() == false ){
+            verifState($rdm,$i);
+            if ($rdm[$i]->getState() == false ){
         ?>
-                <form><button type="submit" name="jouer" value="<?= $i ?>">
-                        <img src= <?= $card[$i]->getImg_face_down() ?> alt="" height="200px" width="133px">
+                <form><button type="submit" name="jouer" value="<?= $rdm[$i]->getId_card() ?>">
+                        <img src= <?= $rdm[$i]->getImg_face_down() ?> alt="" height="200px" width="133px">
                     </button>
                 <?php
             } else {
-                ?><img src= <?= $card[$i]->getImg_face_up() ?> height="200px" width="133px">
+                ?><img src= <?= $rdm[$i]->getImg_face_up() ?> height="200px" width="133px">
                 <?php
             }
                 ?>
                 </form>
 <?php
         }
+        
     }
 
 
@@ -65,9 +91,11 @@ function verifState($card,$i){
     <?php boardCard($nbCard); ?>
     </div>
     <form action="" method="get">
-        <button type="submit" name="submit">play</button>
+        <button type="submit" name="reset" value="reset" >reset</button>
+        <button type="submit" name="play" value="play" >play</button>
     </form>
     <style>.card{display: flex; flex-wrap: wrap;}</style>
 
 </body>
 </html>
+<?php var_dump($_SESSION['rdm']); ?>
