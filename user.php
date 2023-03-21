@@ -19,44 +19,44 @@ class User
     /*-----------méthode get--------------*/
 
     public function getLogin(){
-        return $login;
+        return $this->login;
     }
 
     public function getPassword(){
-        return $password;
+        return $this->password;
     }
 
     public function getEmail(){
-        return $email;
+        return $this->email;
     }
 
     public function getFirstname(){
-        return $firstname;
+        return $this->firstname;
     }
 
     public function getLastname(){
-        return $lastname;
+        return $this->lastname;
     }
 
     /*--------------méthode set--------------*/
 
-    public function setLogin(){
+    public function setLogin($login){
         $this->login = $login;
     }
 
-    public function setPassword(){
+    public function setPassword($password){
         $this->password = $password;
     }
 
-    public function setEmail(){
+    public function setEmail($email){
         $this->email = $email;
     }
 
-    public function setFirstname(){
+    public function setFirstname($firstname){
         $this->firstname = $firstname;
     }
 
-    public function setLastname(){
+    public function setLastname($lastname){
         $this->lastname = $lastname;
     }
 
