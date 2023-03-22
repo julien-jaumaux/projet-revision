@@ -2,8 +2,28 @@
 include('card.php');
 
 $nbCard = 12;
+if(!isset($_SESSION['temp'])){
+    $_SESSION['temp']=[];
+}
+if(!isset($_SESSION['discover'])){
+    $_SESSION['discover']=[];
+}
 
- function createCard($nbCard)
+
+
+
+    
+function randomblock($card){
+    
+    if(empty($_SESSION['rdm'])){
+        $_SESSION['rdm'] = $card;
+        shuffle($_SESSION['rdm']);
+    }
+    return $_SESSION['rdm'];
+}
+
+
+function createCard($nbCard)
 {
     for ($i = 0; $i < $nbCard; $i+=2){ // i+=2, i = i +2
         $card[$i] = new Card($i, './images.php/back.png',  './images.php/img' . $i . '.png', false);
@@ -18,8 +38,8 @@ function resetgame(){
         session_destroy();
         session_unset();
         header("location:memory.php");
-    }   
- }
+        }   
+    }
 } 
 resetgame();
 
@@ -29,27 +49,40 @@ function verifState($card,$i){
     if(isset($_GET['jouer'])){
         if($_GET['jouer'] == $card[$i]->getId_card()){
             $card[$i]->setState(true);
-            header("location:memory.php");
-            var_dump($i);
+            //var_dump($i); 
+            if(count($_SESSION['temp'])<=2){
+                array_push($_SESSION['temp'],$card[$i]);
+                if(count($_SESSION['temp'])===2){
+                if($_SESSION['temp'][0]->getImg_face_up() == $_SESSION['temp'][1]->getImg_face_up()){
+                    array_push($_SESSION['discover'],$_SESSION['temp']);
+                    $_SESSION['temp']=[];
+                    var_dump($_SESSION['discover']); 
+                }else{
+                    $_SESSION['temp'][0]->setState(false);
+                    $_SESSION['temp'][1]->setState(false);
+                    $_SESSION['temp']=[];
+                    header("location:memory.php");
+                }
+            }            
+            }else{
+                $_SESSION['temp']=[];
+            }   var_dump($_SESSION['temp']);
+            
         }
-       
-    }
 
+    }
+    
 }
 
-    
-function randomblock($card){
-    
-    if(empty($_SESSION['rdm'])){
-        $_SESSION['rdm'] = $card;
-        shuffle($_SESSION['rdm']);
+function endgame(){
+    if(count($_SESSION['discover'])*2 === count($_SESSION['rdm'])){
+        echo "fin de la partie";
     }
-    
-    return $_SESSION['rdm'];
 }
 
 
- function boardCard($nbCard)
+
+function boardCard($nbCard)
 {
     
     $card = createCard($nbCard);
@@ -98,4 +131,7 @@ function randomblock($card){
 
 </body>
 </html>
-<?php var_dump($_SESSION['rdm']); ?>
+<?php var_dump($_SESSION['rdm']);
+endgame();
+
+?> 
