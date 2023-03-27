@@ -130,7 +130,7 @@ function boardCard($nbCard)
 
     <body>
 
-
+    <h1>Bienvenue sur le jeux du memory</h1>
         <?php if (!isset($_SESSION['niveau'])) { ?>
             <form method="POST">
                 <label for="pet-select">Nombre de carte:</label>
@@ -161,6 +161,12 @@ function boardCard($nbCard)
             endgame();
         }
         ?>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <button><a href="inscription.php">Aller vers création d'articles</a></button>
     </body>
     <style>
         .card {

@@ -41,5 +41,6 @@ $user->register($login, $password, $email, $firstname, $lastname,$dbh);
         <input type="submit" name="s'inscrire">
     </form>
     <button><a href="connexion.php">Se connecter</a></button>
+    <button><a href="memory.php">Aller vers le memory</a></button>
 </body>
 </html>
